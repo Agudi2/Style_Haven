@@ -1,0 +1,21 @@
+<%- include('../partials/header.ejs') %>
+<main class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="max-w-md w-full bg-white p-8 rounded-lg shadow-lg">
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Login</h2>
+        <form action="/users/login" method="POST" class="space-y-6">
+            <div class="space-y-2">
+                <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                <input type="email" id="email" name="email" required class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+            <div class="space-y-2">
+                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                <input type="password" id="password" name="password" required class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+            <button type="submit" class="w-full py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Login</button>
+        </form>
+        <div class="mt-6 text-center">
+            <p class="text-gray-600">Don't have an account? <a href="/users/signup" class="text-indigo-600 hover:text-indigo-700">Sign Up</a></p>
+        </div>
+    </div>
+</main>
+<%- include('../partials/footer.ejs') %>

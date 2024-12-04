@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Style Haven</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        header {
+            background-size: cover;
+            background-position: center;
+            height: 100px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto max-w-6xl flex items-center justify-between p-4">
+            <div class="header-left flex items-center">
+                <a href="/">
+                    <img src="/images/StyleHaven.jpg" alt="Style Haven Logo" class="w-16 h-auto">
+                </a>
+            </div>
+            <div class="header-right flex items-center space-x-4">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search..." class="border border-gray-300 rounded p-2">
+                </div>
+                <nav>
+                    <ul class="flex space-x-4">
+                        <li class="nav-item"><a href="/cloth" class="text-gray-700 hover:text-blue-500">Browse</a></li>
+                        <li class="nav-item"><a href="/cloth/new" class="text-gray-700 hover:text-blue-500">Sell</a></li>
+                        <% if (!session.user) { %>
+                            <li class="nav-item"><a href="/users/signup" class="text-gray-700 hover:text-blue-500">Sign Up</a></li>
+                            <li class="nav-item"><a href="/users/login" class="text-gray-700 hover:text-blue-500">Login</a></li>
+                        <% } else { %>
+                            <li class="nav-item"><a href="/users/profile" class="text-gray-700 hover:text-blue-500">My Account</a></li>
+                            <li class="nav-item"><a href="/users/logout" class="text-gray-700 hover:text-blue-500">Log Out</a></li>
+                        <% } %>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <% if (successMessages && successMessages.length > 0) { %>
+            <div class="alert alert-success">
+                <% successMessages.forEach(msg => { %>
+                    <p><%= msg %></p>
+                <% }); %>
+            </div>
+        <% } %>
+
+        <% if (errorMessages && errorMessages.length > 0) { %>
+            <div class="alert alert-danger">
+                <% errorMessages.forEach(msg => { %>
+                    <p><%= msg %></p>
+                <% }); %>
+            </div>
+        <% } %>
+    </header>
+</body>
+</html>

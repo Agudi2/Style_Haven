@@ -1,0 +1,41 @@
+<%- include('../partials/header.ejs') %>
+<main class="max-w-4xl mx-auto p-6">
+    <h2 class="text-3xl font-extrabold text-center mb-6">Edit Item</h2>
+    <form action="/cloth/<%= item._id %>?_method=PUT" method="POST" enctype="multipart/form-data" class="space-y-6">
+        <div class="form-group">
+            <label for="itemCondition" class="block text-sm font-medium text-gray-700">Condition:</label>
+            <select id="itemCondition" name="condition" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" required>
+                <option value="new" <%= item.condition === 'new' ? 'selected' : '' %>>New</option>
+                <option value="mint" <%= item.condition === 'mint' ? 'selected' : '' %>>Mint</option>
+                <option value="good" <%= item.condition === 'good' ? 'selected' : '' %>>Good</option>
+                <option value="fair" <%= item.condition === 'fair' ? 'selected' : '' %>>Fair</option>
+                <option value="used" <%= item.condition === 'used' ? 'selected' : '' %>>Used</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="itemTitle" class="block text-sm font-medium text-gray-700">Title:</label>
+            <input type="text" id="itemTitle" name="title" value="<%= item.title %>" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" required>
+        </div>
+
+        <div class="form-group">
+            <label for="itemPrice" class="block text-sm font-medium text-gray-700">Price:</label>
+            <input type="number" id="itemPrice" name="price" value="<%= item.price %>" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" min="0.00" required>
+        </div>
+
+        <div class="form-group">
+            <label for="itemDetails" class="block text-sm font-medium text-gray-700">Details:</label>
+            <textarea id="itemDetails" name="details" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" rows="3" required><%= item.details %></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="itemImage" class="block text-sm font-medium text-gray-700">Image:</label>
+            <input type="file" id="itemImage" name="image" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" accept="image/*">
+        </div>
+
+        <div class="form-group text-center">
+            <button type="submit" class="w-full py-2 px-4 bg-indigo-600 text-white rounded-md shadow hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Submit</button>
+        </div>
+    </form>
+</main>
+<%- include('../partials/footer.ejs') %>
