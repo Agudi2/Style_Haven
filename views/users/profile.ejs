@@ -17,7 +17,27 @@
                             <form action="/cloth/<%= item._id %>?_method=DELETE" method="POST" class="inline">
                                 <button type="submit" class="text-sm text-red-500 hover:underline">Delete</button>
                             </form>
+                            <% if (item.totalOffers > 0) { %>
+                                <a href="/cloth/<%= item._id %>/offers" class="text-sm text-green-500 hover:underline">View Offers</a>
+                            <% } else { %>
+                                <button class="text-sm text-gray-500" disabled>No Offers</button>
+                            <% } %>
                         </div>
+                    </li>
+                <% }); %>
+            </ul>
+        </div>
+        <div class="border-t border-gray-200 pt-6">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Your Offers</h3>
+            <ul class="space-y-4">
+                <% user.offers.forEach(offer => { %>
+                    <li class="bg-gray-100 p-4 rounded-md shadow-md flex justify-between items-center">
+                        <p class="text-lg text-gray-700">Offer Amount: $<%= offer.amount %></p>
+                        <p class="text-lg text-gray-700">Status: <%= offer.status %></p>
+                        <a href="/cloth/<%= offer.item %>" class="text-sm text-indigo-600 hover:underline">View Item</a>
+                        <% if (offer.status === 'accepted') { %>
+                            <span class="text-sm text-green-500">Winning Offer</span>
+                        <% } %>
                     </li>
                 <% }); %>
             </ul>

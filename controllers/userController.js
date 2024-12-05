@@ -57,25 +57,22 @@ exports.login = async (req, res) => {
 };
 
 
-exports.getProfile = async (req, res) => {
-    if (!req.session.user) {
-        req.flash('error', 'You need to log in to view your profile.');
-        return res.redirect('/users/login');
-    }
-
+exports.getProfile = async (req, res, next) => {
     try {
-        const user = await User.findById(req.session.user._id).populate('items');
+        const user = await User.findById(req.session.user._id)
+            .populate('items')
+            .populate({
+                path: 'offers',
+                populate: { path: 'item', select: 'title' }
+            });
+
         res.render('users/profile', { user });
-        if (!user) {
-            req.flash('error', 'User not found.');
-            return res.status(404).redirect('/users/login');
-        }
-    } catch (error) {
-        console.error('Error fetching user profile:', error);
-        req.flash('error', 'Internal server error while fetching profile.');
-        res.status(500).redirect('/users/profile');
+    } catch (err) {
+        console.error("Error fetching profile:", err);
+        next(err);
     }
 };
+
 
 exports.logout = (req, res) => {
     if (req.session) {

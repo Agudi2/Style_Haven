@@ -20,8 +20,12 @@ exports.isLoggedIn = (req, res, next) => {
 
 exports.isAuthor = async (req, res, next) => {
     try {
-        let id = req.params.id;
-        if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+        let id = req.params.id || req.params.itemId;  // Adjust to check itemId if id is undefined
+
+        // Add a console log to debug
+        console.log(`Received id: ${id}`);
+
+        if (!id || !id.match(/^[0-9a-fA-F]{24}$/)) {
             throw new Error('Invalid clothing id');
         }
 
@@ -35,7 +39,7 @@ exports.isAuthor = async (req, res, next) => {
                 return next(err);
             }
         } else {
-            let err = new Error('Cannot find an item with id ' + req.params.id);
+            let err = new Error('Cannot find an item with id ' + id);
             err.status = 404;
             return next(err);
         }
@@ -43,3 +47,4 @@ exports.isAuthor = async (req, res, next) => {
         next(err);
     }
 };
+

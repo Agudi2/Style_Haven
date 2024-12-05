@@ -13,7 +13,8 @@ const itemSchema = new mongoose.Schema({
     totalOffers: { type: Number, default: 0 },
     active: { type: Boolean, default: true },
     seller: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    highestOffer: { type: Number, default: 0 }
+    highestOffer: { type: Number, default: 0 },
+    offers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Offer' }]
 });
 
 // Ensure the model is only created once

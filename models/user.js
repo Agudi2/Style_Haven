@@ -7,7 +7,8 @@ const userSchema = new Schema({
     lastName: { type: String, required: [true, 'Last name is required'] },
     email: { type: String, required: [true, 'Email address is required'], unique: true },
     password: { type: String, required: [true, 'Password is required'] },
-    items: [{ type: Schema.Types.ObjectId, ref: 'Item' }]
+    items: [{ type: Schema.Types.ObjectId, ref: 'Item' }],
+    offers: [{ type: Schema.Types.ObjectId, ref: 'Offer' }] // Add this line to reference offers
 }, { timestamps: true });
 
 userSchema.pre('save', function(next) {
@@ -20,7 +21,5 @@ userSchema.pre('save', function(next) {
         next();
     });
 });
-
-
 
 module.exports = mongoose.model('User', userSchema);

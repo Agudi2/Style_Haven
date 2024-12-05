@@ -17,8 +17,13 @@ exports.create = async (req, res, next) => {
             item: req.params.itemId,
             user: req.session.user._id
         });
-        
+
         await offer.save();
+
+        // Ensure offer ID is added to item's offers array
+        item.offers.push(offer._id); 
+        await item.save(); 
+
         await Item.findByIdAndUpdate(req.params.itemId, {
             $inc: { totalOffers: 1 },
             $max: { highestOffer: req.body.amount }
@@ -33,14 +38,21 @@ exports.create = async (req, res, next) => {
 
 exports.index = async (req, res, next) => {
     try {
-        const item = await Item.findById(req.params.itemId).populate('offers');
+        const item = await Item.findById(req.params.itemId).populate({
+            path: 'offers',
+            populate: { path: 'user', select: 'firstName lastName' } // Populate user details in offers
+        });
+
+        // Add a console log to debug
+        console.log('Populated offers:', item.offers);
+
         if (!item) {
             throw new Error('Item not found');
         }
         if (!item.seller.equals(req.session.user._id)) {
             throw new Error('Unauthorized to view offers');
         }
-        
+
         res.render('offers/index', { item });
     } catch (err) {
         console.error("Error fetching offers:", err);

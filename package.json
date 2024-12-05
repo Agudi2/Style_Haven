@@ -5,11 +5,14 @@
     "connect-mongo": "^5.1.0",
     "ejs": "^3.1.10",
     "express": "^4.21.1",
+    "express-rate-limit": "^7.4.1",
     "express-session": "^1.18.1",
     "express-validator": "^7.2.0",
+    "limit": "^0.0.1",
     "method-override": "^3.0.0",
     "mongoose": "^8.8.1",
     "morgan": "^1.10.0",
-    "multer": "^1.4.5-lts.1"
+    "multer": "^1.4.5-lts.1",
+    "rate": "^0.1.1"
   }
 }
