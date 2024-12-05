@@ -14,7 +14,7 @@ const app = express();
 let port = 3000;
 let host = 'localhost';
 app.set('view engine', 'ejs');
-const mongUri = 'mongodb+srv://admin:admin123@cluster0.3c1j4.mongodb.net/project4?retryWrites=true&w=majority&appName=Cluster0';
+const mongUri = 'mongodb+srv://admin:admin123@cluster0.3c1j4.mongodb.net/project5?retryWrites=true&w=majority&appName=Cluster0';
 
 // Connect to MongoDB
 mongoose.connect(mongUri)

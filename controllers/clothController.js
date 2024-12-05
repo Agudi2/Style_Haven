@@ -125,8 +125,9 @@ exports.delete = async (req, res, next) => {
             throw new Error('Invalid clothing id');
         }
 
-        const item = await model.findByIdAndDelete(id, { useFindAndModify: false });
+        const item = await model.findByIdAndDelete(id);
         if (item) {
+            await Offer.deleteMany({ item: id });
             res.redirect('/cloth');
         } else {
             throw new Error('Cannot find a clothing with id ' + id);
@@ -136,6 +137,7 @@ exports.delete = async (req, res, next) => {
         next(err);
     }
 };
+
 
 exports.create = [
     upload.single('image'),

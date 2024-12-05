@@ -1,0 +1,18 @@
+<%- include('../partials/header.ejs') %>
+<main class="max-w-4xl mx-auto p-6">
+    <h2 class="text-3xl font-extrabold text-center mb-6">Offers for <%= item.title %></h2>
+    <ul class="space-y-4">
+        <% item.offers.forEach(offer => { %>
+            <li class="bg-gray-100 p-4 rounded-md shadow-md flex justify-between items-center">
+                <p class="text-lg">Offer Amount: $<%= offer.amount %></p>
+                <p class="text-lg">Status: <%= offer.status %></p>
+                <% if (item.active && offer.status === 'pending') { %>
+                    <form action="/cloth/<%= item._id %>/offers/<%= offer._id %>?_method=PUT" method="POST">
+                        <button type="submit" class="text-sm text-green-500 hover:underline">Accept</button>
+                    </form>
+                <% } %>
+            </li>
+        <% }); %>
+    </ul>
+</main>
+<%- include('../partials/footer.ejs') %>
